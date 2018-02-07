@@ -1,42 +1,47 @@
 <template>
-    <form action="#">
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <input class="mdl-textfield__input" type="text" v-model="fullname">
-            <label class="mdl-textfield__label" > Full Name </label>
+    <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--12-col">
+            <form action="#">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" v-model="fullname">
+                    <label class="mdl-textfield__label" > Full Name </label>
+                </div>
+                <div class="mdl-layout-spacer"></div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" v-model="position">
+                    <label class="mdl-textfield__label" > Position </label>
+                </div>
+                <div class="mdl-layout-spacer"></div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" v-model="location">
+                    <label class="mdl-textfield__label" > Location </label>
+                </div>
+                <div class="mdl-layout-spacer"></div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" v-model="company_name">
+                    <label class="mdl-textfield__label" > Company </label>
+                </div>
+                <div class="mdl-layout-spacer"></div>
+                <div class="mdl-textfield mdl-js-textfield">
+                    <textarea class="mdl-textfield__input" type="text" rows= "3" v-model="address_lines"></textarea>
+                    <label class="mdl-textfield__label"> Address </label>
+                </div>
+                <div class="mdl-layout-spacer"></div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" v-model="phone">
+                    <label class="mdl-textfield__label" > Phone </label>
+                    <span v-show="phone_error" class="input-error">Invalid phone number</span>
+                </div>
+                <div class="mdl-layout-spacer"></div>
+                <button v-if="!contact" class="mdl-button mdl-js-button mdl-button--fab" @click="createContact">
+                    <i class="material-icons">add</i>
+                </button>
+                <button v-if="contact" class="mdl-button mdl-js-button mdl-button--fab" @click="closeEdit">
+                    <i class="material-icons">check</i>
+                </button>
+            </form>
         </div>
-        <div class="mdl-layout-spacer"></div>
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <input class="mdl-textfield__input" type="text" v-model="position">
-            <label class="mdl-textfield__label" > Position </label>
-        </div>
-        <div class="mdl-layout-spacer"></div>
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <input class="mdl-textfield__input" type="text" v-model="location">
-            <label class="mdl-textfield__label" > Location </label>
-        </div>
-        <div class="mdl-layout-spacer"></div>
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <input class="mdl-textfield__input" type="text" v-model="company_name">
-            <label class="mdl-textfield__label" > Company </label>
-        </div>
-        <div class="mdl-layout-spacer"></div>
-        <div class="mdl-textfield mdl-js-textfield">
-            <textarea class="mdl-textfield__input" type="text" rows= "3" v-model="address_lines"></textarea>
-            <label class="mdl-textfield__label"> Address </label>
-        </div>
-        <div class="mdl-layout-spacer"></div>
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <input class="mdl-textfield__input" type="text" v-model="phone">
-            <label class="mdl-textfield__label" > Phone </label>
-            <span v-show="phone_error" class="input-error">Invalid phone number</span>
-        </div>
-        <button v-if="!contact" class="mdl-button mdl-js-button mdl-button--fab" @click="createContact">
-            <i class="material-icons">add</i>
-        </button>
-        <button v-if="contact" class="mdl-button mdl-js-button mdl-button--fab" @click="closeEdit">
-            <i class="material-icons">add</i>
-        </button>
-    </form>
+    </div>
 </template>
 
 <script>
@@ -63,6 +68,12 @@ export default {
             if(!this.phone_error) {
                 this.$emit('create-contact', this.new_contact);
                 this.$emit('close-edit');
+                this.fullname = "";
+                this.location = "";
+                this.position = "";
+                this.phone= "";
+                this.company_name= "";
+                this.address_lines= "";
             }
         },
 

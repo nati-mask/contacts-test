@@ -10,9 +10,7 @@
         </div>
         <div class="card-details">
             <div class="card-contact">
-                <p class="fullname">
-                    {{ contact.fullname }}
-                </p>
+                <h5 class="fullname"> {{ contact.fullname }} </h5>
                 <p class="location">
                     {{ contact.location }}
                     <span v-if="!contact.looking_for_coordinates && contact.lat && contact.lng" class="coords">({{ contact.lng }}/{{ contact.lat }})</span>
@@ -50,9 +48,21 @@ export default {
                 img {
                     border-radius: 50%;
                 }
+                @media (max-width: 760px) {
+                    padding: 20px 20px 0 20px;
+                    img {
+                        width: 90px;
+                    }
+                }
             }
             .position {
+                padding: 10px 16px 0 16px;
                 text-align: center;
+                font-size: 14px;
+                font-weight: bold;
+                @media (max-width: 760px) {
+                    font-size: 12px;
+                }
             }
             // width:30%;
         }
@@ -62,6 +72,13 @@ export default {
             flex-direction: column;
             flex: 1;
             .card-contact {
+                p {
+                    margin-bottom: 0;
+                    font-size: 13px;
+                    line-height: 1.4;
+                    color: #555;
+                }
+                padding: 16px;
                 .address-lines {
                     white-space: pre-wrap;
                 }
@@ -69,6 +86,10 @@ export default {
             }
             .card-actions {
                 margin: 10px;
+                .material-icons {
+                    cursor: pointer;
+                    font-size: 20px;
+                }
             }
         }
     }
