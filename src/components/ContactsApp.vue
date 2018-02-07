@@ -4,8 +4,8 @@
             <h1> {{ title }} </h1>
         </header>
         <div class="page">
-            <contacts-list :contacts="contacts" @set-edited="setEdited" @delete-contact="deleteContact"></contacts-list>
-            <contact-editor :contact="edited_contact" @set-contact="setContact" @create-contact="createContact"></contact-editor>
+            <contacts-list v-show="!editing" :contacts="contacts" @set-edited="setEdited" @delete-contact="deleteContact"></contacts-list>
+            <contact-editor v-show="editing" :contact="edited_contact" @set-contact="setContact" @close-edit="closeEdit" @create-contact="createContact"></contact-editor>
         </div>
     </div>
 </template>
@@ -28,26 +28,32 @@ export default {
             title: "App Title",
             contacts: [],
             edited_contact: null,
+            editing: false,
         }
     },
     methods: {
         setEdited (contact_id) {
-            console.log('moving');
+            if(!contact_id) {
+                this.edited_contact = null;
+                this.editing = true;
+                return;
+            }
             let contact = this.contacts.filter(contact => contact.id === contact_id)[0];
             if(!contact) return;
             this.edited_contact = contact;
+            this.editing = true;
+        },
+        closeEdit (contact_id) {
+            this.editing = false;
+            if(contact_id) this.$nextTick(() => this.lookupContactCoordinates(contact_id));
         },
         setContact (contact_id, prop, val) {
             this.contacts.forEach(contact => {
                 if(contact.id === contact_id) {
                     contact[prop] = val;
-                    if(prop === 'location') {
-                        // TODO: Debounce:
-                        if(val) this.$nextTick(() => this.lookupContactCoordinates(contact_id));
-                        else {
-                            contact.lat = null;
-                            contact.lng = null;
-                        }
+                    if(prop === 'location' && !val) {
+                        contact.lat = null;
+                        contact.lng = null;
                     }
                 }
             });

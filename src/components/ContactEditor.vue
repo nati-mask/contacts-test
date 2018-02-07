@@ -20,6 +20,9 @@
         <button v-if="!contact" class="mdl-button mdl-js-button mdl-button--fab" @click="createContact">
             <i class="material-icons">add</i>
         </button>
+        <button v-if="contact" class="mdl-button mdl-js-button mdl-button--fab" @click="$emit('close-edit', contact.id)">
+            <i class="material-icons">add</i>
+        </button>
     </form>
 </template>
 
@@ -42,6 +45,7 @@ export default {
         createContact () {
             
             this.$emit('create-contact', this.new_contact);
+            this.$emit('close-edit');
             this.new_contact.id = null;
         }
     },
