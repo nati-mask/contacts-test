@@ -32,15 +32,15 @@ export default {
     data: function () {
         return {
             new_contact : {
-                image : "john-smith.jpg",
-                id: null,
                 fullname : "",
+                location : "",
+                position : "",
             }
         }
     },
     methods: {
         createContact () {
-            this.new_contact.id = uuid().split('-')[4];
+            
             this.$emit('create-contact', this.new_contact);
             this.new_contact.id = null;
         }

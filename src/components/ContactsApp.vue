@@ -31,14 +31,55 @@ export default {
         }
     },
     methods: {
-        setContact (id, prop, val) {
+        setContact (contact_id, prop, val) {
             this.contacts.forEach(contact => {
-                if(contact.id === id) contact[prop] = val;
+                if(contact.id === contact_id) {
+                    contact[prop] = val;
+                    if(prop === 'location') {
+                        // TODO: Debounce:
+                        if(val) this.$nextTick(() => this.lookupContactCoordinates(contact_id));
+                        else {
+                            contact.lat = null;
+                            contact.lng = null;
+                        }
+                    }
+                }
             });
         },
         createContact (new_contact) {
-            console.log(new_contact);
-            this.contacts.push(new_contact);
+            let contact = {};
+            Object.keys(new_contact).forEach(key => contact[key] = new_contact[key] );
+            contact.id = uuid().split('-')[4];
+            contact.image = "john-smith.jpg",
+            contact.looking_for_coordinates = false,
+            contact.lng = null;
+            contact.lat = null;
+            this.contacts.push(contact);
+            this.lookupContactCoordinates(contact.id);
+        },
+        lookupContactCoordinates (contact_id) {
+            let contact = this.contacts.filter(contact => contact.id === contact_id)[0];
+            if(!contact) return;
+            contact.looking_for_coordinates = true;
+            let url = 'https://maps.googleapis.com/maps/api/geocode/json?' + $.param({
+                address : contact.location,
+                key : "AIzaSyDKvvBgAkSCugEbXckutuAFuqPzthsCnJ8",
+            });
+            $.get(url).then(geocode_response => {
+                console.log('GeoCode response:', geocode_response);
+                if(geocode_response && geocode_response.results && geocode_response.results.length) {
+                    if(geocode_response.results[0].geometry && geocode_response.results[0].geometry.location) {
+                        let location = geocode_response.results[0].geometry.location;
+                        if(location.lat && location.lng) {
+                            contact.lng = parseFloat(location.lng).toFixed(3);
+                            contact.lat = parseFloat(location.lat).toFixed(3);
+                        };
+                    }
+
+                }
+                contact.looking_for_coordinates = false;
+            })
+            // console.log(url);
         }
     },
     created: function () {
@@ -48,7 +89,9 @@ export default {
         });
 
         // TMP:
-        // this.edited_contact = this.contacts[1];
+        this.edited_contact = this.contacts[1];
+
+        this.contacts.forEach(contact => this.lookupContactCoordinates(contact.id));
     }
 };
 

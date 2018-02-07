@@ -14,6 +14,7 @@
             </p>
             <p class="location">
                 {{ contact.location }}
+                <span v-if="!contact.looking_for_coordinates && contact.lat && contact.lng" class="coords">({{ contact.lng }}/{{ contact.lat }})</span>
             </p>
             <p class="company-name">
                 <strong>{{ contact.company_name }}</strong>

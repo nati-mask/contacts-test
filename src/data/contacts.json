@@ -5,7 +5,21 @@
         "image" : "john-smith.jpg",
         "location" : "Rivierra State",
         "company_name" : "Twitter INC",
-        "address_lines" : "795 Folsom ave, suite 600\nSan Francisco, CA 94522\nP: (123) 456-7890"
+        "address_lines" : "795 Folsom ave, suite 600\nSan Francisco, CA 94522\nP: (123) 456-7890",
+        "lng" : null,
+        "lat" : null,
+        "looking_for_coordinates" : true
+    },
+    {
+        "fullname": "Alex Jonathan",
+        "position": "CEO",
+        "image": "alex jonathan.jpg",
+        "location": "Avenue Romain Rolland Paris",
+        "company_name": "Twitter INC",
+        "address_lines": "795 Folsom ave, suite 600\nSan Francisco, CA 94522\nP: (123) 456-7890",
+        "lng": null,
+        "lat": null,
+        "looking_for_coordinates": true
     },
     {
         "fullname": "Alex Jonathan",
@@ -13,14 +27,9 @@
         "image": "alex jonathan.jpg",
         "location": "Rivierra State",
         "company_name": "Twitter INC",
-        "address_lines": "795 Folsom ave, suite 600\nSan Francisco, CA 94522\nP: (123) 456-7890"
-    },
-    {
-        "fullname": "Alex Jonathan",
-        "position": "CEO",
-        "image": "alex jonathan.jpg",
-        "location": "Rivierra State",
-        "company_name": "Twitter INC",
-        "address_lines": "795 Folsom ave, suite 600\nSan Francisco, CA 94522\nP: (123) 456-7890"
+        "address_lines": "795 Folsom ave, suite 600\nSan Francisco, CA 94522\nP: (123) 456-7890",
+        "lng": null,
+        "lat": null,
+        "looking_for_coordinates": true
     }
 ]
