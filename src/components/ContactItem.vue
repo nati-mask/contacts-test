@@ -9,17 +9,23 @@
             </div>
         </div>
         <div class="card-details">
-            <p class="fullname">
-                {{ contact.fullname }}
-            </p>
-            <p class="location">
-                {{ contact.location }}
-                <span v-if="!contact.looking_for_coordinates && contact.lat && contact.lng" class="coords">({{ contact.lng }}/{{ contact.lat }})</span>
-            </p>
-            <p class="company-name">
-                <strong>{{ contact.company_name }}</strong>
-            </p>
-            <p class="address-lines">{{ contact.address_lines }}</p>
+            <div class="card-contact">
+                <p class="fullname">
+                    {{ contact.fullname }}
+                </p>
+                <p class="location">
+                    {{ contact.location }}
+                    <span v-if="!contact.looking_for_coordinates && contact.lat && contact.lng" class="coords">({{ contact.lng }}/{{ contact.lat }})</span>
+                </p>
+                <p class="company-name">
+                    <strong>{{ contact.company_name }}</strong>
+                </p>
+                <p class="address-lines">{{ contact.address_lines }}</p>
+            </div>
+            <div class="card-actions">
+                <i class="material-icons" @click="$emit('set-edited', contact.id)">edit</i>
+                <i class="material-icons" @click="$emit('delete-contact', contact.id)">delete</i>
+            </div>
         </div>
     </div>
 </template>
@@ -50,10 +56,19 @@ export default {
             // width:30%;
         }
         .card-details {
-            .address-lines {
-                white-space: pre-wrap;
+            -webkit-flex-direction: column;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            flex: 1;
+            .card-contact {
+                .address-lines {
+                    white-space: pre-wrap;
+                }
+                flex: 1;
             }
-            // flex: 1;
+            .card-actions {
+                margin: 10px;
+            }
         }
     }
 </style>

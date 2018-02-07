@@ -50,6 +50,16 @@ export default {
     //     componentHandler.downgradeElements(el);
     //     componentHandler.upgradeElement(el);
     // },
+    watch: {
+        contact () {
+            $(this.$el).find('.mdl-textfield').each((i, el) => {
+                this.$nextTick(() => {
+                    componentHandler.downgradeElements(el);
+                    componentHandler.upgradeElement(el);
+                })
+            });
+        }
+    },
     computed: {
         fullname : {
             get () { if(this.contact) return this.contact.fullname; return this.new_contact.fullname; },

@@ -4,7 +4,7 @@
             <h1> {{ title }} </h1>
         </header>
         <div class="page">
-            <contacts-list :contacts="contacts"></contacts-list>
+            <contacts-list :contacts="contacts" @set-edited="setEdited" @delete-contact="deleteContact"></contacts-list>
             <contact-editor :contact="edited_contact" @set-contact="setContact" @create-contact="createContact"></contact-editor>
         </div>
     </div>
@@ -31,6 +31,12 @@ export default {
         }
     },
     methods: {
+        setEdited (contact_id) {
+            console.log('moving');
+            let contact = this.contacts.filter(contact => contact.id === contact_id)[0];
+            if(!contact) return;
+            this.edited_contact = contact;
+        },
         setContact (contact_id, prop, val) {
             this.contacts.forEach(contact => {
                 if(contact.id === contact_id) {
@@ -45,6 +51,14 @@ export default {
                     }
                 }
             });
+        },
+        deleteContact (contact_id) {
+            let index = null;
+            this.contacts.forEach((contact, i) => {
+                if(contact.id === contact_id) index = i;
+            });
+            console.log('Index for delete:', index);
+            this.contacts.splice(index, 1);
         },
         createContact (new_contact) {
             let contact = {};
@@ -89,7 +103,7 @@ export default {
         });
 
         // TMP:
-        this.edited_contact = this.contacts[1];
+        // this.edited_contact = this.contacts[1];
 
         this.contacts.forEach(contact => this.lookupContactCoordinates(contact.id));
     }
