@@ -21,6 +21,7 @@
                     <strong>{{ contact.company_name }}</strong>
                 </p>
                 <p class="address-lines">{{ contact.address_lines }}</p>
+                <p class="phone">P: {{ contact.phone }}</p>
             </div>
             <div class="card-actions">
                 <i class="material-icons" @click="$emit('set-edited', contact.id)">edit</i>
