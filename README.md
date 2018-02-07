@@ -5,7 +5,7 @@ The goal of this test is to create an application to manage our contact.
 
 Below you have a .zip with all the assets anf the screen
 
-You are FREE to use your librairies choice (bootstrap, jqery, vue.js, react, etc...) if you decide it. 
+You are FREE to use your librairies choice (bootstrap, jqery, vue.js, react, etc...) if you decide to use it. Of course, we have a preference for Vue.jst that we are using actualy
 
 ### HTML / CSS Integration ###
 * You have to integrate this two screen in responsive design
