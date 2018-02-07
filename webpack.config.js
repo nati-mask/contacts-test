@@ -38,7 +38,7 @@ module.exports = {
             {
                 test: /\.jpg$/,
                 include: [
-                    path.resolve(__dirname, "public/img"),
+                    path.resolve(__dirname, "src/img"),
                 ],
                 use: {
                     loader: 'file-loader',

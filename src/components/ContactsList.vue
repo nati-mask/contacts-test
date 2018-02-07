@@ -1,6 +1,6 @@
 <template>
     <div class="contact-list mdl-grid">
-        <contact-item v-for="i in 5" :key="i" class="mdl-cell mdl-cell--6-col"></contact-item>
+        <contact-item v-for="contact in contacts" :key="contact.id" class="mdl-cell mdl-cell--6-col" :contact="contact"></contact-item>
     </div>
 </template>
 
@@ -9,6 +9,7 @@
 import ContactItem from './ContactItem.vue';
 
 export default {
+    props: ['contacts'],
     components : {
         'contact-item' : ContactItem,
     }
